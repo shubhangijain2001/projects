@@ -43,7 +43,8 @@ app.post('/users', (req, res)=> {
             res.status(201).send(user)
 
         }
-        else{ console.log(err.message) }
+        else{ 
+            res.send('user already exist') }
     })
     client.end;
 })
@@ -113,6 +114,45 @@ app.post('/delete', (req, res)=> {
     //console.log(task_id)
     let insertQuery = `DELETE FROM task
     WHERE task_id='${idd}'`
+
+    client.query(insertQuery, (err, result)=>{
+        if(!err){
+            res.status(201).send('delete was successful')
+
+        }
+        else{ console.log(err.message) 
+        res.send(err.message)}
+    })
+    client.end;
+})
+
+//delete task for deleting user
+app.post('/deleteTask', (req, res)=> {
+    const {idd}= req.body;
+    //console.log(id,task,date);
+    //console.log(task_id)
+    let insertQuery = `DELETE FROM task
+    WHERE fk_user_id='${idd}'`
+
+    client.query(insertQuery, (err, result)=>{
+        if(!err){
+            res.status(201).send('delete was successful')
+
+        }
+        else{ console.log(err.message) 
+        res.send(err.message)}
+    })
+    client.end;
+})
+
+//delete user
+app.post('/deleteUser', (req, res)=> {
+    const {idd}= req.body;
+    //console.log(id,task,date);
+    //console.log(task_id)
+    console.log('heloo',idd)
+    let insertQuery = `DELETE FROM users
+    WHERE user_id=${idd}`
 
     client.query(insertQuery, (err, result)=>{
         if(!err){

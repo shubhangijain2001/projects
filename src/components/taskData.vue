@@ -11,6 +11,7 @@
                 <th>Task id</th>
                 <th>Task name</th>
                 <th>Task date</th>
+                <th>Update</th>
             </tr>
             
                 <tr v-for="res in arr" :key="res.id"> 
@@ -20,6 +21,8 @@
                     <td>{{res.task_id}}</td>
                     <td>{{res.task_name}}</td>
                     <td>{{res.task_date}}</td>
+                    <td><button v-on:click="updatee(res.task_id)"> update </button></td>
+                    <td><button v-on:click="deletee(res.task_id)"> delete </button></td>
                 </tr>
                 </table>
         <h1 v-else>No tasks</h1>
@@ -44,12 +47,42 @@ export default {
         let res= await axios.get(`http://localhost:5000/users`)
         console.log(res.data)
         this.arr1=res.data
+        let user= localStorage.getItem('user-info')
+        //console.log(user.type)
+        if(user){
+        this.$router.push({name:'taskdata'})
+    }
+    else{
+      this.$router.push({name:'login'})
+    }
     },
     methods:{
         logout(){
             localStorage.clear();
             this.$router.push({name:'login'})
         },
+        async updatee(task_id){
+        console.log(task_id)
+        /*if(task_id){
+            
+        }*/
+        //let res= await axios.post(`http://localhost:5000/update`,{id:task_id});
+        this.$router.push({name:'update',params:{id:`${task_id}`}})
+        //console.log(res)
+    },
+    async deletee(idd){
+        console.log(idd)
+       let result=await axios.post("http://localhost:5000/delete",{idd});
+       let res=await axios.get("http://localhost:5000/task");
+    this.arr=res.data
+    console.log(result)
+    console.log(this.arr);
+    let user=JSON.parse(localStorage.getItem('user-info')).user_id
+    console.log(user)
+    this.arr1=this.arr.filter((item)=>item.fk_user_id==`${user}`)
+    alert('deleted successfully')
+    
+    },
     }
     
     

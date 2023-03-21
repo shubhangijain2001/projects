@@ -24,7 +24,7 @@ export default{
       name:'',
       email:'',
       password:'',
-      type:''
+      type:'',
     }
   },
   methods:{
@@ -36,8 +36,16 @@ export default{
         password:this.password,
         type:this.type
      })
-     let res= await axios.post(`http://localhost:5000/login`,{email:this.email,password:this.password});
-     console.log(result);
+     if(result.data=='user already exist')
+     {
+        alert('user already exist!!')
+        console.log('hello')
+        this.name=''
+        this.email=''
+        this.password=''
+     }
+    let res= await axios.post(`http://localhost:5000/login`,{email:this.email,password:this.password});
+     console.log(result.data);
      console.warn(result)
      if(result.status==201)
      {

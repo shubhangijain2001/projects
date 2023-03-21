@@ -5,8 +5,11 @@
             <li class="li"><a href="/taskdata" alt="home" class="a">Tasks data</a></li>
             <li class="li"><a href="/userdata" alt="view" class="a">Users data</a></li>
     </ul>
-     <h1>Hii admin</h1>
+    <div class="home">
+      <h1>Hii admin</h1>
      <h3>You can see all the users and task details</h3>
+    </div>
+     
     
     
 </div>
@@ -46,5 +49,9 @@ export default {
   padding: 8px;
   color:azure;
   /*background-color: #dddddd;*/
+}
+.home{
+    margin-top: 170px;
+    color: black;
 }
 </style>

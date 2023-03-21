@@ -6,13 +6,15 @@
         </ul>
         
         
-        <h1>Update your task</h1><hr>
-        <div class="edit">
+        <h1 style="margin-top:150px;">Update your task</h1><br>
+        <div>
+        <div class="formfield">
             
             <label for="name"><b>Task name   </b></label>
-            <textarea type="text" placeholder="Task name" v-model='task'/><br><br>
+            <textarea class="ts1" type="text" placeholder="Task name" v-model='task'/><br><br>
+            </div>
             <label for="date"><b>Date      </b></label>
-            <input type="date" placeholder="Choose a date" v-model='date'><br><br>
+            <input class='ts1' type="date" placeholder="Choose a date" v-model='date'><br><br>
             <button v-on:click="update" align="center">update</button>
         </div>
         
@@ -42,9 +44,28 @@ export default {
      //.then(response => console.log(response.data))
      console.log(this.task,this.date)
      console.warn(result)
-     this.$router.push({name:'viewtask'})
+     const user_type = JSON.parse(localStorage.getItem('user-info')).type
+     console.log(user_type)
+     if(user_type=='user' || user_type==false){
+        console.log('jjjj')
+        this.$router.push({name:'viewtask'})
+     }
+     else if(user_type=='true'){
+        this.$router.push({name:'taskData'})
+     }
+     
      },
 
+    },
+    mounted(){
+        let user= localStorage.getItem('user-info')
+        //console.log(user.type)
+        if(user){
+        this.$router.push({name:'update'})
+    }
+    else{
+      this.$router.push({name:'login'})
+    }
     }
 }
 </script>
@@ -67,4 +88,12 @@ export default {
   color:azure;
   /*background-color: #dddddd;*/
 }
+.ts1{
+    /*border-color:orange solid;*/
+    border:2px solid orange;
+}
+.formfield {
+   /* display: flex;  */
+  align-items: center;
+} 
 </style>

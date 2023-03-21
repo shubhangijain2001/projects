@@ -10,7 +10,9 @@
                 <th>User_id</th>
                 <th>User_name</th>
                 <th>Email</th>
+
                 <th>Password</th>
+                <th>Delete</th>
             </tr>
             
                 <tr v-for="res in arr" :key="res.id"> 
@@ -18,6 +20,7 @@
                     <td>{{res.name}}</td>
                     <td>{{res.email}}</td>
                     <td>{{res.password}}</td>
+                    <td><button v-on:click="deletee(res.user_id)">delete</button></td>
                 </tr>
                 </table>
         <h1 v-else>No tasks</h1>
@@ -37,12 +40,36 @@ export default {
         let result= await axios.get(`http://localhost:5000/users`)
         console.log(result.data)
         this.arr=result.data
+        console.warn("mount")
+        let user= localStorage.getItem('user-info')
+        //console.log(user.type)
+        if(user){
+        this.$router.push({name:'userdata'})
+    }
+    else{
+      this.$router.push({name:'login'})
+    }
     },
     methods:{
         logout(){
             localStorage.clear();
             this.$router.push({name:'login'})
         },
+    async deletee(idd){
+        console.log(idd)
+        let result1=await axios.post("http://localhost:5000/deleteTask",{idd});
+       let result=await axios.post("http://localhost:5000/deleteUser",{idd});
+       let res=await axios.get("http://localhost:5000/users");
+    this.arr=res.data
+    console.log(result)
+    console.log(result1)
+    console.log(this.arr);
+    /*let user=JSON.parse(localStorage.getItem('user-info')).user_id
+    console.log(user)*/
+    //this.arr=this.arr.filter((item)=>item.user_id!=`${idd}`)
+    alert('deleted successfully')
+    
+    },
     }
     
     

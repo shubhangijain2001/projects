@@ -39,15 +39,14 @@ export default {
             }
         }
     },
-    /*mounted(){
+    mounted(){
     console.warn("mount")
     let user= localStorage.getItem('user-info')
     console.log(user.type)
     if(user){
         this.$router.push({name:'home'})
     }
-
-  }*/
+  }
 }
     
 

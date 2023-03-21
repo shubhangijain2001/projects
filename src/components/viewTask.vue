@@ -10,8 +10,6 @@
         
         </div><br>
         <h1 class="h11">All tasks</h1>
-        <div :style="image">
-  </div>
             
                
             <table align="center" v-if="arr1.length" class="table">
@@ -43,9 +41,29 @@ export default {
     return{
         arr1:[],
         arr:[],
-        image:{backgroundImage :"url(../assets/task.webp)"},
     }
   },
+  async mounted(){
+    let result=await axios.get("http://localhost:5000/task");
+    this.arr=result.data
+    //console.log(this.arr)
+    let user1= localStorage.getItem('user-info')
+    console.log(user1)
+    console.log('hooo')
+    if(user1==null){
+          console.log('bxabisbi')
+        this.$router.push({name:'login'})
+    }
+    let user=JSON.parse(user1).user_id
+    console.log(user)
+    this.arr1=this.arr.filter((item)=>item.fk_user_id==`${user}`)
+    /*let user=JSON.parse(localStorage.getItem('user-info')).user_id
+    console.log(user)
+    this.arr1=this.arr.filter((item)=>item.fk_user_id==`${user}`)*/
+    
+        
+        
+    },
   methods:{
     
     async updatee(task_id){
@@ -75,14 +93,7 @@ export default {
             this.$router.push({name:'login'})
         }
   },
-  async mounted(){
-    let result=await axios.get("http://localhost:5000/task");
-    this.arr=result.data
-    //console.log(this.arr)
-    let user=JSON.parse(localStorage.getItem('user-info')).user_id
-    console.log(user)
-    this.arr1=this.arr.filter((item)=>item.fk_user_id==`${user}`)
-    },
+  
 }
 </script>
 

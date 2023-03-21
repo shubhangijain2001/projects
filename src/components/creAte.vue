@@ -6,14 +6,15 @@
             <li class="li"><a href="/" alt="home" class="a">Back to home</a></li>
             <li class="li"><a href="/viewtask" alt="view" class="a">View tasks</a></li>
         </ul>
-        </div><br><br>
-        <h1 class="head">To create a task fill the details below</h1>
+        </div><br><br><br>
+        <h1 style="margin-top:150px;" class="head">To create a task fill the details below</h1><br>
         <div class="edit">
-            
+            <div class="formfield">
             <label for="name"><b>Task name   </b></label>
-            <textarea type="text" placeholder="Task name" v-model='task'/><br><br>
+            <textarea class="ts1" type="text" placeholder="Task name" v-model='task'/><br><br>
+            </div>
             <label for="date"><b>Date      </b></label>
-            <input type="date" placeholder="Choose a date" v-model='date'><br><br>
+            <input class="ts1" type="date" placeholder="Choose a date" v-model='date'><br><br>
             <button class="edit1" v-on:click="submit" align="center">Submit</button>
         </div>
         
@@ -54,6 +55,14 @@ export default {
     console.warn("mount")
     let iid=localStorage.getItem("user-info.values(id)")
     console.log(iid)
+    let user= localStorage.getItem('user-info')
+        //console.log(user.type)
+        if(user){
+        this.$router.push({name:'create'})
+    }
+    else{
+      this.$router.push({name:'login'})
+    }
   }
     
 }
@@ -87,4 +96,12 @@ export default {
   color:azure;
   /*background-color: #dddddd;*/
 }
+.ts1{
+    /*border-color:orange solid;*/
+    border:2px solid orange;
+}
+.formfield {
+   /* display: flex;  */
+  align-items: center;
+} 
 </style>
