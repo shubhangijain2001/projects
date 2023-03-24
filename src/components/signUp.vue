@@ -6,7 +6,7 @@
         <label for="type">Admin</label>
         <input class="btn" type="checkbox" v-model="type">
         <input type="text" placeholder="Name" v-model="name">
-        <input type="email" placeholder="Email" v-model="email">
+        <input type="email" placeholder="Username" v-model="email">
         <input type="password" placeholder="Password" v-model="password">
         <button v-on:click="signup">Sign Up</button>
         <label class="cl" for="">Already have an account?</label>
@@ -25,6 +25,7 @@ export default{
       email:'',
       password:'',
       type:'',
+      count:0
     }
   },
   methods:{
@@ -36,6 +37,7 @@ export default{
         password:this.password,
         type:this.type
      })
+
      if(result.data=='user already exist')
      {
         alert('user already exist!!')

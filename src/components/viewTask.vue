@@ -35,6 +35,7 @@
 
 <script>
 import axios from 'axios'
+import router from '../routes'
 export default {
     name:'viewTask',
   data(){
@@ -48,11 +49,16 @@ export default {
     this.arr=result.data
     //console.log(this.arr)
     let user1= localStorage.getItem('user-info')
+    let user2=JSON.parse(user1)
     console.log(user1)
     console.log('hooo')
     if(user1==null){
           console.log('bxabisbi')
         this.$router.push({name:'login'})
+    }
+    else if(user2 && user2.type=='true'){
+      console.log('gygiygygy',user2.type)
+      router.push('/admin')
     }
     let user=JSON.parse(user1).user_id
     console.log(user)

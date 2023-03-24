@@ -12,12 +12,18 @@
                 <th>Task name</th>
                 <th>Task date</th>
                 <th>Update</th>
+                <th>Delete</th>
             </tr>
             
                 <tr v-for="res in arr" :key="res.id"> 
-                    <div  v-for="user in arr1" :key="user.user_id">
-              <td  v-if="user.user_id == res.fk_user_id">{{ user.name }}</td>
-            </div>
+                    
+              <td>
+                <div  v-for="user in arr1" :key="user.user_id">
+                  <div class="td" v-if="user.user_id == res.fk_user_id">{{ user.name }}
+                    </div>
+                    </div>
+                  </td>
+            
                     <td>{{res.task_id}}</td>
                     <td>{{res.task_name}}</td>
                     <td>{{res.task_date}}</td>
@@ -47,13 +53,13 @@ export default {
         let res= await axios.get(`http://localhost:5000/users`)
         console.log(res.data)
         this.arr1=res.data
-        let user= localStorage.getItem('user-info')
+        let user= JSON.parse(localStorage.getItem('user-info'))
         //console.log(user.type)
-        if(user){
-        this.$router.push({name:'taskdata'})
+        if(!user){
+        this.$router.push({name:'login'})
     }
-    else{
-      this.$router.push({name:'login'})
+    else if(user && user.type==false){
+      this.$router.push({name:'home'})
     }
     },
     methods:{

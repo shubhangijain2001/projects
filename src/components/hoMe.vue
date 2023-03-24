@@ -25,10 +25,14 @@ export default{
      mounted(){
     console.warn("mount")
     
-    let user= localStorage.getItem('user-info')
-    this.name=JSON.parse(user).name
+    let user= JSON.parse(localStorage.getItem('user-info'))
+    this.name=user.name
+    console.log(user)
     if(!user){
-        this.$router.push({name:'signup'})
+        this.$router.push({name:'login'})
+    }
+    else if(user && user.type=="true"){
+      this.$router.push({name:'admin'})
     }
   }
 }

@@ -23,7 +23,17 @@ export default {
             localStorage.clear();
             this.$router.push({name:'login'})
         },
+    },
+    mounted(){
+    console.warn("mount")
+    let user= JSON.parse(localStorage.getItem('user-info'))
+    if(!user){
+        this.$router.push({name:'login'})
     }
+    else if(user && user.type==false){
+      this.$router.push({name:'home'})
+    }
+  }
 }
 </script>
 <style>

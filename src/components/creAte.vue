@@ -51,18 +51,22 @@ export default {
         },
     
     },
+    created(){
+        let user= JSON.parse(localStorage.getItem('user-info'))
+        console.log('hello',user.type)
+        if(!user){
+        this.$router.push({name:'login'})
+    }
+    else if(user && user.type=="true"){
+      this.$router.push({name:'admin'})
+    }
+    },
     mounted(){
     console.warn("mount")
     let iid=localStorage.getItem("user-info.values(id)")
     console.log(iid)
-    let user= localStorage.getItem('user-info')
-        //console.log(user.type)
-        if(user){
-        this.$router.push({name:'create'})
-    }
-    else{
-      this.$router.push({name:'login'})
-    }
+    
+    
   }
     
 }

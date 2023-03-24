@@ -3,7 +3,7 @@
     <img class="logo" src="../assets/signuplogo.png" alt="image">
     <h1>LogIn</h1>
     <div class="element">
-        <input type="text" placeholder="Email" v-model="email">
+        <input type="text" placeholder="Username" v-model="email">
         <input type="password" placeholder="Password" v-model="password">
         <button v-on:click="login">login</button>
         <label class="cl" for="">Don't have an account?</label>

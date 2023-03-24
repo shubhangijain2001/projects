@@ -41,13 +41,13 @@ export default {
         console.log(result.data)
         this.arr=result.data
         console.warn("mount")
-        let user= localStorage.getItem('user-info')
+        let user= JSON.parse(localStorage.getItem('user-info'))
         //console.log(user.type)
-        if(user){
-        this.$router.push({name:'userdata'})
+        if(!user){
+        this.$router.push({name:'login'})
     }
-    else{
-      this.$router.push({name:'login'})
+    else if(user && user.type==false){
+      this.$router.push({name:'home'})
     }
     },
     methods:{
